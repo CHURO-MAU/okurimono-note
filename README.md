@@ -1,1 +1,1 @@
-# okurimomo-note
+# okurimono-note
