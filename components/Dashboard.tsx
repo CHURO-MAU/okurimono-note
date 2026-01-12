@@ -53,7 +53,7 @@ export default function Dashboard({ records }: DashboardProps) {
       {/* 概要カード */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="card bg-gradient-to-br from-sakura/20 to-sakura/5">
-          <p className="text-sm text-warm-gray/70 mb-1">そうがく</p>
+          <p className="text-sm text-warm-gray/70 mb-1">総額</p>
           <p className="text-3xl font-bold text-sakura">
             {formatCurrency(data.total)}
           </p>
