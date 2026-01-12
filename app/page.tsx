@@ -6,26 +6,21 @@ import { getRecords } from '@/lib/storage'
 import GiftList from '@/components/GiftList'
 import GiftForm from '@/components/GiftForm'
 import Dashboard from '@/components/Dashboard'
-import FilterBar from '@/components/FilterBar'
 import DataManagement from '@/components/DataManagement'
 
 export default function Home() {
   const [records, setRecords] = useState<GiftRecord[]>([])
-  const [filteredRecords, setFilteredRecords] = useState<GiftRecord[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingRecord, setEditingRecord] = useState<GiftRecord | null>(null)
   const [activeTab, setActiveTab] = useState<'list' | 'dashboard' | 'backup'>('list')
-  const [showDataManagement, setShowDataManagement] = useState(false)
 
   useEffect(() => {
     const loadedRecords = getRecords()
     setRecords(loadedRecords)
-    setFilteredRecords(loadedRecords)
   }, [])
 
   const handleRecordsUpdate = (updatedRecords: GiftRecord[]) => {
     setRecords(updatedRecords)
-    setFilteredRecords(updatedRecords)
   }
 
   const handleEdit = (record: GiftRecord) => {
@@ -39,22 +34,15 @@ export default function Home() {
   }
 
   return (
-    <div className="relative pb-20">
+    <div className="relative pb-28">
       {/* メインコンテンツ */}
       <div className="space-y-6">
         {activeTab === 'list' && (
-          <>
-            <FilterBar
-              records={records}
-              onFilterChange={setFilteredRecords}
-            />
-
-            <GiftList
-              records={filteredRecords}
-              onEdit={handleEdit}
-              onUpdate={handleRecordsUpdate}
-            />
-          </>
+          <GiftList
+            records={records}
+            onEdit={handleEdit}
+            onUpdate={handleRecordsUpdate}
+          />
         )}
 
         {activeTab === 'dashboard' && (
@@ -65,6 +53,7 @@ export default function Home() {
           <DataManagement
             onDataImported={handleRecordsUpdate}
             onClose={() => setActiveTab('list')}
+            isModal={false}
           />
         )}
       </div>
@@ -85,14 +74,14 @@ export default function Home() {
       {/* フローティングアクションボタン（右下） */}
       <button
         onClick={() => setShowForm(true)}
-        className="fixed bottom-24 right-6 w-14 h-14 bg-sakura text-white rounded-full shadow-lg hover:bg-sakura/90 transition-all duration-200 flex items-center justify-center text-2xl z-40"
+        className="fixed bottom-28 right-6 w-14 h-14 bg-sakura text-white rounded-full shadow-lg hover:bg-sakura/90 transition-all duration-200 flex items-center justify-center text-2xl z-40"
         aria-label="新しく記録"
       >
         +
       </button>
 
       {/* 下部ナビゲーションバー */}
-      <nav className="fixed bottom-0 left-0 right-0 bg-soft-white border-t border-peach/20 z-30">
+      <nav className="fixed bottom-0 left-0 right-0 bg-soft-white border-t border-peach/20 z-30 pb-4">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-around items-center h-16">
             <button

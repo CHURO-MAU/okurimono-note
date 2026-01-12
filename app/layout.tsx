@@ -42,7 +42,7 @@ export default function RootLayout({
           <header className="bg-soft-white shadow-soft">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
               <h1 className="text-2xl sm:text-3xl font-bold text-sakura">
-                🎁 おくりもの帳
+                おくりもの帳
               </h1>
               <p className="text-sm text-warm-gray/70 mt-1">
                 心のこもった贈り物を家族で記録
