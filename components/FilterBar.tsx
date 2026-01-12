@@ -163,7 +163,7 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
                 onClick={clearFilters}
                 className="text-sm text-sakura hover:underline"
               >
-                ✕ フィルターを クリア
+                ✕ フィルタークリア
               </button>
             </div>
           )}
