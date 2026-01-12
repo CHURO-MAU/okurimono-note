@@ -112,7 +112,7 @@ export default function Dashboard({ records }: DashboardProps) {
 
       {/* チャート */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {renderChart('子供別 集計', data.byRecipient, '#FFB7C5')}
+        {renderChart('子供別 集計', data.byRecipient, '#FF9FB0')}
         {renderChart('贈り主別 集計', data.byGiver, '#A7D8DE')}
       </div>
 

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'おくりもの帳',
   description: '子供がいただいたお祝いやお年玉を、家族が簡単に記録・管理できるアプリ',
   manifest: '/okurimono-note/manifest.json',
-  themeColor: '#FFB7C5',
+  themeColor: '#FF9FB0',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',

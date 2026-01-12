@@ -10,7 +10,7 @@ const config: Config = {
     extend: {
       colors: {
         'warm-cream': '#FFF8F0',
-        'sakura': '#FFB7C5',
+        'sakura': '#FF9FB0',
         'wakakusa': '#C3D825',
         'sora': '#A7D8DE',
         'warm-gray': '#5A5A5A',
