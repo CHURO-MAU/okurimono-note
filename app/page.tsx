@@ -16,11 +16,19 @@ export default function Home() {
 
   useEffect(() => {
     const loadedRecords = getRecords()
-    setRecords(loadedRecords)
+    // 日付の降順（新しい順）でソート
+    const sortedRecords = [...loadedRecords].sort((a, b) => {
+      return b.date.localeCompare(a.date)
+    })
+    setRecords(sortedRecords)
   }, [])
 
   const handleRecordsUpdate = (updatedRecords: GiftRecord[]) => {
-    setRecords(updatedRecords)
+    // 日付の降順（新しい順）でソート
+    const sortedRecords = [...updatedRecords].sort((a, b) => {
+      return b.date.localeCompare(a.date)
+    })
+    setRecords(sortedRecords)
   }
 
   const handleEdit = (record: GiftRecord) => {
