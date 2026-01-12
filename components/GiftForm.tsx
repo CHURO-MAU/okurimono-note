@@ -120,7 +120,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
             className="select"
             required
           >
-            <option value="">えらんでください</option>
+            <option value="">選んでください</option>
             {categories.map(cat => (
               <option key={cat.id} value={cat.name}>
                 {cat.name}
@@ -130,13 +130,13 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
         </div>
 
         <div>
-          <label className="label">おくってくれたひと *</label>
+          <label className="label">贈ってくれた人 *</label>
           <input
             type="text"
             value={formData.giver}
             onChange={e => setFormData({ ...formData, giver: e.target.value })}
             className="input"
-            placeholder="おじいちゃん"
+            placeholder="祖父"
             required
           />
         </div>
@@ -160,7 +160,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
             onChange={e => setFormData({ ...formData, memo: e.target.value })}
             className="textarea"
             rows={3}
-            placeholder="いつも げんきでねと いわれた"
+            placeholder="いつも元気でねと言われた"
           />
         </div>
 
@@ -182,7 +182,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
           {formData.hasReturned && (
             <div className="space-y-3 ml-8 pl-4 border-l-2 border-peach">
               <div>
-                <label className="label">おかえしした 日付</label>
+                <label className="label">お返しした日付</label>
                 <input
                   type="date"
                   value={formData.returnDate}
@@ -197,7 +197,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
                   onChange={e => setFormData({ ...formData, returnMemo: e.target.value })}
                   className="textarea"
                   rows={2}
-                  placeholder="カタログギフトを おくった"
+                  placeholder="カタログギフトを送った"
                 />
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
 
         <div className="flex gap-3 pt-4">
           <button type="submit" className="btn-primary flex-1">
-            {editingRecord ? 'こうしん' : 'ついか'}
+            {editingRecord ? '更新' : '追加'}
           </button>
           <button
             type="button"
