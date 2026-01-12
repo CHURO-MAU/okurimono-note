@@ -7,12 +7,13 @@ import GiftList from '@/components/GiftList'
 import GiftForm from '@/components/GiftForm'
 import Dashboard from '@/components/Dashboard'
 import DataManagement from '@/components/DataManagement'
+import GiversList from '@/components/GiversList'
 
 export default function Home() {
   const [records, setRecords] = useState<GiftRecord[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingRecord, setEditingRecord] = useState<GiftRecord | null>(null)
-  const [activeTab, setActiveTab] = useState<'list' | 'dashboard' | 'backup'>('list')
+  const [activeTab, setActiveTab] = useState<'list' | 'givers' | 'dashboard' | 'backup'>('list')
 
   useEffect(() => {
     const loadedRecords = getRecords()
@@ -47,6 +48,14 @@ export default function Home() {
       <div className="space-y-6">
         {activeTab === 'list' && (
           <GiftList
+            records={records}
+            onEdit={handleEdit}
+            onUpdate={handleRecordsUpdate}
+          />
+        )}
+
+        {activeTab === 'givers' && (
+          <GiversList
             records={records}
             onEdit={handleEdit}
             onUpdate={handleRecordsUpdate}
@@ -94,38 +103,50 @@ export default function Home() {
           <div className="flex justify-around items-center h-16">
             <button
               onClick={() => setActiveTab('list')}
-              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+              className={`flex items-center justify-center flex-1 h-full transition-colors ${
                 activeTab === 'list'
                   ? 'text-sakura'
                   : 'text-warm-gray hover:text-sakura'
               }`}
+              aria-label="記録一覧"
             >
-              <span className="text-2xl mb-1">📝</span>
-              <span className="text-xs font-medium">記録一覧</span>
+              <span className="text-3xl">📝</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('givers')}
+              className={`flex items-center justify-center flex-1 h-full transition-colors ${
+                activeTab === 'givers'
+                  ? 'text-sakura'
+                  : 'text-warm-gray hover:text-sakura'
+              }`}
+              aria-label="贈り主別"
+            >
+              <span className="text-3xl">👥</span>
             </button>
 
             <button
               onClick={() => setActiveTab('dashboard')}
-              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+              className={`flex items-center justify-center flex-1 h-full transition-colors ${
                 activeTab === 'dashboard'
                   ? 'text-sakura'
                   : 'text-warm-gray hover:text-sakura'
               }`}
+              aria-label="集計"
             >
-              <span className="text-2xl mb-1">📊</span>
-              <span className="text-xs font-medium">集計</span>
+              <span className="text-3xl">📊</span>
             </button>
 
             <button
               onClick={() => setActiveTab('backup')}
-              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+              className={`flex items-center justify-center flex-1 h-full transition-colors ${
                 activeTab === 'backup'
                   ? 'text-sakura'
                   : 'text-warm-gray hover:text-sakura'
               }`}
+              aria-label="バックアップ"
             >
-              <span className="text-2xl mb-1">💾</span>
-              <span className="text-xs font-medium">バックアップ</span>
+              <span className="text-3xl">💾</span>
             </button>
           </div>
         </div>
