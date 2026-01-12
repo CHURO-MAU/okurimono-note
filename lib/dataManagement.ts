@@ -53,13 +53,13 @@ export const importDataOverwrite = (jsonString: string): { success: boolean; err
 
     // バリデーション
     if (!data.records || !Array.isArray(data.records)) {
-      return { success: false, error: 'ふぁいるの けいしきが ただしくありません' }
+      return { success: false, error: 'ファイルの形式が正しくありません' }
     }
 
     // 必須フィールドのチェック
     for (const record of data.records) {
       if (!record.id || !record.date || record.amount === undefined || !record.category || !record.giver || !record.recipient) {
-        return { success: false, error: 'ふぁいるの でーたが ふかんぜんです' }
+        return { success: false, error: 'ファイルのデータが不完全です' }
       }
     }
 
@@ -68,7 +68,7 @@ export const importDataOverwrite = (jsonString: string): { success: boolean; err
 
     return { success: true, count: data.records.length }
   } catch (error) {
-    return { success: false, error: 'ふぁいるの よみこみに しっぱいしました' }
+    return { success: false, error: 'ファイルの読み込みに失敗しました' }
   }
 }
 
@@ -81,13 +81,13 @@ export const importDataAppend = (jsonString: string): { success: boolean; error?
 
     // バリデーション
     if (!data.records || !Array.isArray(data.records)) {
-      return { success: false, error: 'ふぁいるの けいしきが ただしくありません' }
+      return { success: false, error: 'ファイルの形式が正しくありません' }
     }
 
     // 必須フィールドのチェック
     for (const record of data.records) {
       if (!record.id || !record.date || record.amount === undefined || !record.category || !record.giver || !record.recipient) {
-        return { success: false, error: 'ふぁいるの でーたが ふかんぜんです' }
+        return { success: false, error: 'ファイルのデータが不完全です' }
       }
     }
 
@@ -104,7 +104,7 @@ export const importDataAppend = (jsonString: string): { success: boolean; error?
 
     return { success: true, count: newRecords.length }
   } catch (error) {
-    return { success: false, error: 'ふぁいるの よみこみに しっぱいしました' }
+    return { success: false, error: 'ファイルの読み込みに失敗しました' }
   }
 }
 
@@ -118,10 +118,10 @@ export const readFileAsText = (file: File): Promise<string> => {
       if (e.target?.result) {
         resolve(e.target.result as string)
       } else {
-        reject(new Error('ふぁいるの よみこみに しっぱいしました'))
+        reject(new Error('ファイルの読み込みに失敗しました'))
       }
     }
-    reader.onerror = () => reject(new Error('ふぁいるの よみこみに しっぱいしました'))
+    reader.onerror = () => reject(new Error('ファイルの読み込みに失敗しました'))
     reader.readAsText(file)
   })
 }

@@ -12,9 +12,10 @@ import {
 interface DataManagementProps {
   onDataImported: (records: GiftRecord[]) => void
   onClose: () => void
+  isModal?: boolean
 }
 
-export default function DataManagement({ onDataImported, onClose }: DataManagementProps) {
+export default function DataManagement({ onDataImported, onClose, isModal = true }: DataManagementProps) {
   const [importMode, setImportMode] = useState<'overwrite' | 'append'>('append')
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -22,10 +23,10 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
   const handleExport = () => {
     try {
       downloadDataAsJSON()
-      setMessage({ type: 'success', text: '✅ でーたを だうんろーどしました！' })
+      setMessage({ type: 'success', text: '✅ データをダウンロードしました！' })
       setTimeout(() => setMessage(null), 3000)
     } catch (error) {
-      setMessage({ type: 'error', text: '❌ だうんろーどに しっぱいしました' })
+      setMessage({ type: 'error', text: '❌ ダウンロードに失敗しました' })
     }
   }
 
@@ -39,7 +40,7 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
 
     // ファイルタイプのチェック
     if (!file.name.endsWith('.json')) {
-      setMessage({ type: 'error', text: '❌ JSONふぁいるを せんたくしてください' })
+      setMessage({ type: 'error', text: '❌ JSONファイルを選択してください' })
       return
     }
 
@@ -54,8 +55,8 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
       if (result.success) {
         setMessage({
           type: 'success',
-          text: `✅ ${result.count}けんの でーたを ${
-            importMode === 'overwrite' ? 'ふっきゅうしました' : 'ついかしました'
+          text: `✅ ${result.count}件のデータを ${
+            importMode === 'overwrite' ? '復旧しました' : '追加しました'
           }！`,
         })
 
@@ -67,7 +68,7 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
         setMessage({ type: 'error', text: `❌ ${result.error}` })
       }
     } catch (error) {
-      setMessage({ type: 'error', text: '❌ ふぁいるの よみこみに しっぱいしました' })
+      setMessage({ type: 'error', text: '❌ ファイルの読み込みに失敗しました' })
     }
 
     // ファイル入力をリセット
@@ -76,12 +77,12 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
     }
   }
 
-  return (
-    <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
-      <div className="bg-warm-cream rounded-softer max-w-lg w-full p-6 space-y-6">
-        {/* ヘッダー */}
+  const content = (
+    <div className={isModal ? "bg-warm-cream rounded-softer max-w-lg w-full p-6 space-y-6" : "space-y-6"}>
+      {/* ヘッダー */}
+      {isModal && (
         <div className="flex justify-between items-center">
-          <h2 className="text-2xl font-bold text-sakura">💾 でーた ばっくあっぷ</h2>
+          <h2 className="text-2xl font-bold text-sakura">💾 データバックアップ</h2>
           <button
             onClick={onClose}
             className="text-2xl text-warm-gray/60 hover:text-warm-gray transition-colors"
@@ -89,6 +90,7 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
             ✕
           </button>
         </div>
+      )}
 
         {/* メッセージ */}
         {message && (
@@ -105,21 +107,21 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
 
         {/* エクスポートセクション */}
         <div className="card">
-          <h3 className="text-lg font-bold text-warm-gray mb-3">📤 でーたの ばっくあっぷ</h3>
+          <h3 className="text-lg font-bold text-warm-gray mb-3">📤 データのバックアップ</h3>
           <p className="text-sm text-warm-gray/70 mb-4">
-            いまの でーたを ふぁいるに ほぞんします。<br />
-            ぶらうざの でーたが きえても、このふぁいるから ふっきゅうできます。
+            今のデータをファイルに保存します。<br />
+            ブラウザのデータが消えても、このファイルから復旧できます。
           </p>
           <button onClick={handleExport} className="btn-primary w-full">
-            📥 でーたを だうんろーど
+            📥 データをダウンロード
           </button>
         </div>
 
         {/* インポートセクション */}
         <div className="card">
-          <h3 className="text-lg font-bold text-warm-gray mb-3">📥 でーたの ふっきゅう</h3>
+          <h3 className="text-lg font-bold text-warm-gray mb-3">📥 データの復旧</h3>
           <p className="text-sm text-warm-gray/70 mb-4">
-            ほぞんした ふぁいるから でーたを よみこみます。
+            保存したファイルからデータを読み込みます。
           </p>
 
           {/* インポートモード選択 */}
@@ -134,9 +136,9 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
                 className="mt-1"
               />
               <div>
-                <div className="font-medium text-warm-gray">➕ ついか（すいしょう）</div>
+                <div className="font-medium text-warm-gray">➕ 追加（推奨）</div>
                 <div className="text-xs text-warm-gray/60">
-                  いまの でーたは のこして、ふぁいるの でーたを ついかします
+                  今のデータは残して、ファイルのデータを追加します
                 </div>
               </div>
             </label>
@@ -151,9 +153,9 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
                 className="mt-1"
               />
               <div>
-                <div className="font-medium text-warm-gray">🔄 ぜんぶ おきかえ</div>
+                <div className="font-medium text-warm-gray">🔄 全部置き換え</div>
                 <div className="text-xs text-warm-gray/60">
-                  いまの でーたを けして、ふぁいるの でーたに おきかえます
+                  今のデータを消して、ファイルのデータに置き換えます
                 </div>
               </div>
             </label>
@@ -168,27 +170,36 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
           />
 
           <button onClick={handleImportClick} className="btn-secondary w-full">
-            📂 ふぁいるを えらぶ
+            📂 ファイルを選択
           </button>
         </div>
 
         {/* 注意事項 */}
         <div className="bg-peach/10 border border-peach rounded-soft p-4">
           <p className="text-xs text-warm-gray/70">
-            ⚠️ <strong>ちゅうい：</strong>
+            ⚠️ <strong>注意：</strong>
             <br />
-            LocalStorage（ぶらうざの でーた）は、ぶらうざの せっていを けしたり、
-            しーくれっともーどを つかうと きえてしまいます。
+            LocalStorage（ブラウザのデータ）は、ブラウザの設定を消したり、
+            シークレットモードを使うと消えてしまいます。
             <br />
-            ていきてきに ばっくあっぷを とることを おすすめします。
+            定期的にバックアップを取ることをおすすめします。
           </p>
         </div>
 
-        {/* 閉じるボタン */}
+      {/* 閉じるボタン */}
+      {isModal && (
         <button onClick={onClose} className="btn-secondary w-full">
-          とじる
+          閉じる
         </button>
-      </div>
+      )}
     </div>
+  )
+
+  return isModal ? (
+    <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
+      {content}
+    </div>
+  ) : (
+    content
   )
 }

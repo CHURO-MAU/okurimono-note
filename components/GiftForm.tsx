@@ -88,7 +88,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="label">ひづけ *</label>
+            <label className="label">日付 *</label>
             <input
               type="date"
               value={formData.date}
@@ -99,7 +99,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
           </div>
 
           <div>
-            <label className="label">きんがく *</label>
+            <label className="label">金額 *</label>
             <input
               type="number"
               value={formData.amount}
@@ -120,7 +120,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
             className="select"
             required
           >
-            <option value="">えらんでください</option>
+            <option value="">選んでください</option>
             {categories.map(cat => (
               <option key={cat.id} value={cat.name}>
                 {cat.name}
@@ -130,19 +130,19 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
         </div>
 
         <div>
-          <label className="label">おくってくれたひと *</label>
+          <label className="label">贈ってくれた人 *</label>
           <input
             type="text"
             value={formData.giver}
             onChange={e => setFormData({ ...formData, giver: e.target.value })}
             className="input"
-            placeholder="おじいちゃん"
+            placeholder="祖父"
             required
           />
         </div>
 
         <div>
-          <label className="label">うけとった こども *</label>
+          <label className="label">受け取った子供 *</label>
           <input
             type="text"
             value={formData.recipient}
@@ -160,7 +160,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
             onChange={e => setFormData({ ...formData, memo: e.target.value })}
             className="textarea"
             rows={3}
-            placeholder="いつも げんきでねと いわれた"
+            placeholder="いつも元気でねと言われた"
           />
         </div>
 
@@ -175,14 +175,14 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
               className="w-5 h-5 rounded accent-sakura"
             />
             <label htmlFor="hasReturned" className="label mb-0">
-              おかえし・うちいわい ずみ
+              お返し・内祝い済み
             </label>
           </div>
 
           {formData.hasReturned && (
             <div className="space-y-3 ml-8 pl-4 border-l-2 border-peach">
               <div>
-                <label className="label">おかえしした ひづけ</label>
+                <label className="label">お返しした日付</label>
                 <input
                   type="date"
                   value={formData.returnDate}
@@ -191,13 +191,13 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
                 />
               </div>
               <div>
-                <label className="label">おかえしの ないよう</label>
+                <label className="label">お返しの内容</label>
                 <textarea
                   value={formData.returnMemo}
                   onChange={e => setFormData({ ...formData, returnMemo: e.target.value })}
                   className="textarea"
                   rows={2}
-                  placeholder="カタログギフトを おくった"
+                  placeholder="カタログギフトを送った"
                 />
               </div>
             </div>
@@ -206,7 +206,7 @@ export default function GiftForm({ editingRecord, onClose, onUpdate }: GiftFormP
 
         <div className="flex gap-3 pt-4">
           <button type="submit" className="btn-primary flex-1">
-            {editingRecord ? 'こうしん' : 'ついか'}
+            {editingRecord ? '更新' : '追加'}
           </button>
           <button
             type="button"
