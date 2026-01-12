@@ -60,17 +60,17 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
             onChange={e => setSortBy(e.target.value as any)}
             className="select text-sm py-1.5"
           >
-            <option value="date">ひづけ</option>
-            <option value="amount">きんがく</option>
-            <option value="recipient">こども</option>
-            <option value="giver">おくりぬし</option>
+            <option value="date">日付</option>
+            <option value="amount">金額</option>
+            <option value="recipient">子供</option>
+            <option value="giver">贈り主</option>
           </select>
 
           <button
             onClick={() => setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc')}
             className="btn-outline py-1.5 px-3 text-sm"
           >
-            {sortOrder === 'asc' ? '↑ しょうじゅん' : '↓ こうじゅん'}
+            {sortOrder === 'asc' ? '↑ 昇順' : '↓ 降順'}
           </button>
         </div>
       </div>
@@ -79,13 +79,13 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
         <div className="space-y-3 pt-3 border-t border-peach/20">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             <div>
-              <label className="label text-xs">こども</label>
+              <label className="label text-xs">子供</label>
               <select
                 value={filters.recipient || ''}
                 onChange={e => handleFilterChange('recipient', e.target.value)}
                 className="select text-sm py-1.5"
               >
-                <option value="">すべて</option>
+                <option value="">全て</option>
                 {recipients.map(r => (
                   <option key={r} value={r}>{r}</option>
                 ))}
@@ -99,7 +99,7 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
                 onChange={e => handleFilterChange('category', e.target.value)}
                 className="select text-sm py-1.5"
               >
-                <option value="">すべて</option>
+                <option value="">全て</option>
                 {categories.map(c => (
                   <option key={c.id} value={c.name}>{c.name}</option>
                 ))}
@@ -107,13 +107,13 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
             </div>
 
             <div>
-              <label className="label text-xs">おくりぬし</label>
+              <label className="label text-xs">贈り主</label>
               <select
                 value={filters.giver || ''}
                 onChange={e => handleFilterChange('giver', e.target.value)}
                 className="select text-sm py-1.5"
               >
-                <option value="">すべて</option>
+                <option value="">全て</option>
                 {givers.map(g => (
                   <option key={g} value={g}>{g}</option>
                 ))}
@@ -121,7 +121,7 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
             </div>
 
             <div>
-              <label className="label text-xs">かいしび</label>
+              <label className="label text-xs">開始日</label>
               <input
                 type="date"
                 value={filters.startDate || ''}
@@ -131,7 +131,7 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
             </div>
 
             <div>
-              <label className="label text-xs">しゅうりょうび</label>
+              <label className="label text-xs">終了日</label>
               <input
                 type="date"
                 value={filters.endDate || ''}
@@ -141,7 +141,7 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
             </div>
 
             <div>
-              <label className="label text-xs">おかえし</label>
+              <label className="label text-xs">お返し</label>
               <select
                 value={filters.hasReturned === null || filters.hasReturned === undefined ? '' : String(filters.hasReturned)}
                 onChange={e => {
@@ -150,9 +150,9 @@ export default function FilterBar({ records, onFilterChange }: FilterBarProps) {
                 }}
                 className="select text-sm py-1.5"
               >
-                <option value="">すべて</option>
-                <option value="true">ずみ</option>
-                <option value="false">みずみ</option>
+                <option value="">全て</option>
+                <option value="true">済み</option>
+                <option value="false">未済</option>
               </select>
             </div>
           </div>

@@ -39,9 +39,9 @@ export interface AggregationData {
 
 export const DEFAULT_CATEGORIES: Category[] = [
   { id: '1', name: 'お年玉', color: '#FFB7C5' },
-  { id: '2', name: 'たんじょうび', color: '#A7D8DE' },
-  { id: '3', name: 'にゅうがく・そつぎょう', color: '#C3D825' },
-  { id: '4', name: 'しゅっさん', color: '#FFD4C8' },
-  { id: '5', name: 'おいわい', color: '#E6D5F5' },
+  { id: '2', name: '誕生日', color: '#A7D8DE' },
+  { id: '3', name: '入学・卒業', color: '#C3D825' },
+  { id: '4', name: '出産', color: '#FFD4C8' },
+  { id: '5', name: 'お祝い', color: '#E6D5F5' },
   { id: '6', name: 'その他', color: '#D3D3D3' },
 ]

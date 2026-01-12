@@ -25,7 +25,7 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
       setMessage({ type: 'success', text: '✅ データをダウンロードしました！' })
       setTimeout(() => setMessage(null), 3000)
     } catch (error) {
-      setMessage({ type: 'error', text: '❌ だうんろーどに しっぱいしました' })
+      setMessage({ type: 'error', text: '❌ ダウンロードに失敗しました' })
     }
   }
 
