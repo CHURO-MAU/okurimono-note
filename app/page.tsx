@@ -7,6 +7,7 @@ import GiftList from '@/components/GiftList'
 import GiftForm from '@/components/GiftForm'
 import Dashboard from '@/components/Dashboard'
 import FilterBar from '@/components/FilterBar'
+import DataManagement from '@/components/DataManagement'
 
 export default function Home() {
   const [records, setRecords] = useState<GiftRecord[]>([])
@@ -14,6 +15,7 @@ export default function Home() {
   const [showForm, setShowForm] = useState(false)
   const [editingRecord, setEditingRecord] = useState<GiftRecord | null>(null)
   const [activeTab, setActiveTab] = useState<'list' | 'dashboard'>('list')
+  const [showDataManagement, setShowDataManagement] = useState(false)
 
   useEffect(() => {
     const loadedRecords = getRecords()
@@ -60,6 +62,13 @@ export default function Home() {
         >
           📊 しゅうけい
         </button>
+        <button
+          onClick={() => setShowDataManagement(true)}
+          className="py-3 px-6 rounded-soft font-medium bg-sora text-white hover:bg-sora/90 transition-all duration-200 shadow-soft"
+          title="でーた ばっくあっぷ"
+        >
+          💾
+        </button>
       </div>
 
       {activeTab === 'list' ? (
@@ -98,6 +107,14 @@ export default function Home() {
         </>
       ) : (
         <Dashboard records={records} />
+      )}
+
+      {/* データ管理モーダル */}
+      {showDataManagement && (
+        <DataManagement
+          onDataImported={handleRecordsUpdate}
+          onClose={() => setShowDataManagement(false)}
+        />
       )}
     </div>
   )
