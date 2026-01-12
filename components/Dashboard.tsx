@@ -19,7 +19,7 @@ export default function Dashboard({ records }: DashboardProps) {
         <h3 className="text-lg font-bold text-sakura mb-4">{title}</h3>
         <div className="space-y-3">
           {entries.length === 0 ? (
-            <p className="text-warm-gray/60 text-sm">データが ありません</p>
+            <p className="text-warm-gray/60 text-sm">データがありません</p>
           ) : (
             entries.map(([key, value]) => (
               <div key={key}>
@@ -60,26 +60,26 @@ export default function Dashboard({ records }: DashboardProps) {
         </div>
 
         <div className="card bg-gradient-to-br from-sora/20 to-sora/5">
-          <p className="text-sm text-warm-gray/70 mb-1">きろくすう</p>
+          <p className="text-sm text-warm-gray/70 mb-1">記録数</p>
           <p className="text-3xl font-bold text-sora">
             {records.length}
-            <span className="text-base ml-1">けん</span>
+            <span className="text-base ml-1">件</span>
           </p>
         </div>
 
         <div className="card bg-gradient-to-br from-wakakusa/20 to-wakakusa/5">
-          <p className="text-sm text-warm-gray/70 mb-1">おかえしずみ</p>
+          <p className="text-sm text-warm-gray/70 mb-1">お返し済み</p>
           <p className="text-3xl font-bold text-wakakusa">
             {records.length - unreturned.length}
-            <span className="text-base ml-1">けん</span>
+            <span className="text-base ml-1">件</span>
           </p>
         </div>
 
         <div className="card bg-gradient-to-br from-peach/30 to-peach/10">
-          <p className="text-sm text-warm-gray/70 mb-1">おかえしみずみ</p>
+          <p className="text-sm text-warm-gray/70 mb-1">お返し未済</p>
           <p className="text-3xl font-bold text-red-400">
             {unreturned.length}
-            <span className="text-base ml-1">けん</span>
+            <span className="text-base ml-1">件</span>
           </p>
         </div>
       </div>
@@ -88,7 +88,7 @@ export default function Dashboard({ records }: DashboardProps) {
       {unreturned.length > 0 && (
         <div className="card bg-peach/10 border-2 border-peach">
           <h3 className="text-lg font-bold text-red-500 mb-3">
-            ⚠️ おかえしが ひつような もの
+            ⚠️ お返しが必要なもの
           </h3>
           <div className="space-y-2">
             {unreturned.map(record => (
@@ -112,13 +112,13 @@ export default function Dashboard({ records }: DashboardProps) {
 
       {/* チャート */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {renderChart('こどもべつ しゅうけい', data.byRecipient, '#FFB7C5')}
-        {renderChart('おくりぬしべつ しゅうけい', data.byGiver, '#A7D8DE')}
+        {renderChart('子供別 集計', data.byRecipient, '#FFB7C5')}
+        {renderChart('贈り主別 集計', data.byGiver, '#A7D8DE')}
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {renderChart('カテゴリーべつ しゅうけい', data.byCategory, '#C3D825')}
-        {renderChart('ねんべつ しゅうけい', data.byYear, '#FFD4C8')}
+        {renderChart('カテゴリー別 集計', data.byCategory, '#C3D825')}
+        {renderChart('年別 集計', data.byYear, '#FFD4C8')}
       </div>
     </div>
   )

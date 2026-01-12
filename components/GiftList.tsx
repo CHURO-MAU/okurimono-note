@@ -15,7 +15,7 @@ export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
 
   const handleDelete = (id: string) => {
-    if (confirm('このきろくを さくじょしますか？')) {
+    if (confirm('この記録を削除しますか？')) {
       deleteRecord(id)
       const updatedRecords = getRecords()
       onUpdate(updatedRecords)
@@ -26,10 +26,10 @@ export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
     return (
       <div className="card text-center py-12">
         <p className="text-warm-gray/60 text-lg">
-          まだ きろくが ありません
+          まだ記録がありません
         </p>
         <p className="text-warm-gray/40 text-sm mt-2">
-          「あたらしく きろく」ボタンから きろくを ついかしましょう
+          「新しく記録」ボタンから記録を追加しましょう
         </p>
       </div>
     )
@@ -54,22 +54,22 @@ export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
                 </span>
                 {record.hasReturned && (
                   <span className="px-3 py-1 bg-sora/30 rounded-full text-xs font-medium">
-                    ✓ おかえしずみ
+                    ✓ お返し済み
                   </span>
                 )}
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm">
                 <div>
-                  <span className="text-warm-gray/60">ひづけ:</span>{' '}
+                  <span className="text-warm-gray/60">日付:</span>{' '}
                   <span className="font-medium">{formatDate(record.date)}</span>
                 </div>
                 <div>
-                  <span className="text-warm-gray/60">おくりぬし:</span>{' '}
+                  <span className="text-warm-gray/60">贈り主:</span>{' '}
                   <span className="font-medium">{record.giver}</span>
                 </div>
                 <div>
-                  <span className="text-warm-gray/60">うけとったこども:</span>{' '}
+                  <span className="text-warm-gray/60">受け取った子供:</span>{' '}
                   <span className="font-medium">{record.recipient}</span>
                 </div>
               </div>
@@ -86,16 +86,16 @@ export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
                   {record.hasReturned && (
                     <div className="bg-sora/10 rounded-soft p-3">
                       <p className="text-sm font-medium text-sora mb-1">
-                        おかえし・うちいわい じょうほう
+                        お返し・内祝い情報
                       </p>
                       {record.returnDate && (
                         <p className="text-xs text-warm-gray">
-                          ひづけ: {formatDate(record.returnDate)}
+                          日付: {formatDate(record.returnDate)}
                         </p>
                       )}
                       {record.returnMemo && (
                         <p className="text-xs text-warm-gray mt-1">
-                          ないよう: {record.returnMemo}
+                          内容: {record.returnMemo}
                         </p>
                       )}
                     </div>
@@ -109,7 +109,7 @@ export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
                       }}
                       className="btn-secondary text-sm py-1.5 px-4"
                     >
-                      ✏️ へんしゅう
+                      ✏️ 編集
                     </button>
                     <button
                       onClick={(e) => {
@@ -118,7 +118,7 @@ export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
                       }}
                       className="text-sm py-1.5 px-4 rounded-soft border-2 border-red-300 text-red-500 hover:bg-red-50 transition-colors"
                     >
-                      🗑️ さくじょ
+                      🗑️ 削除
                     </button>
                   </div>
                 </div>

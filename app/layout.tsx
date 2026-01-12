@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'おくりものノート',
+  title: 'おくりもの帳',
   description: '子供がいただいたお祝いやお年玉を、家族が簡単に記録・管理できるアプリ',
 }
 
@@ -18,10 +18,10 @@ export default function RootLayout({
           <header className="bg-soft-white shadow-soft">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
               <h1 className="text-2xl sm:text-3xl font-bold text-sakura">
-                🎁 おくりものノート
+                🎁 おくりもの帳
               </h1>
               <p className="text-sm text-warm-gray/70 mt-1">
-                こころのこもった おくりものを かぞくで きろく
+                心のこもった贈り物を家族で記録
               </p>
             </div>
           </header>

@@ -50,7 +50,7 @@ export default function Home() {
               : 'bg-soft-white text-warm-gray hover:bg-peach/20'
           }`}
         >
-          📝 きろくいちらん
+          📝 記録一覧
         </button>
         <button
           onClick={() => setActiveTab('dashboard')}
@@ -60,12 +60,12 @@ export default function Home() {
               : 'bg-soft-white text-warm-gray hover:bg-peach/20'
           }`}
         >
-          📊 しゅうけい
+          📊 集計
         </button>
         <button
           onClick={() => setShowDataManagement(true)}
           className="py-3 px-6 rounded-soft font-medium bg-sora text-white hover:bg-sora/90 transition-all duration-200 shadow-soft"
-          title="でーた ばっくあっぷ"
+          title="データバックアップ"
         >
           💾
         </button>
@@ -78,7 +78,7 @@ export default function Home() {
               onClick={() => setShowForm(true)}
               className="btn-primary"
             >
-              ➕ あたらしく きろく
+              ➕ 新しく記録
             </button>
           </div>
 
