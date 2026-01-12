@@ -1,4 +1,4 @@
-const CACHE_NAME = 'okurimono-note-v1'
+const CACHE_NAME = 'okurimono-note-v2'
 const BASE_PATH = '/okurimono-note'
 
 // キャッシュするリソース
