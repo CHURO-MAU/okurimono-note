@@ -1,0 +1,47 @@
+export interface GiftRecord {
+  id: string
+  date: string
+  amount: number
+  category: string
+  giver: string
+  recipient: string
+  memo: string
+  hasReturned: boolean
+  returnDate: string | null
+  returnMemo: string
+  createdAt: string
+  updatedAt: string
+}
+
+export interface Category {
+  id: string
+  name: string
+  color: string
+}
+
+export interface FilterOptions {
+  recipient?: string
+  category?: string
+  giver?: string
+  startDate?: string
+  endDate?: string
+  hasReturned?: boolean | null
+}
+
+export interface AggregationData {
+  byRecipient: Record<string, number>
+  byGiver: Record<string, number>
+  byCategory: Record<string, number>
+  byYear: Record<string, number>
+  byMonth: Record<string, number>
+  total: number
+}
+
+export const DEFAULT_CATEGORIES: Category[] = [
+  { id: '1', name: 'お年玉', color: '#FFB7C5' },
+  { id: '2', name: 'たんじょうび', color: '#A7D8DE' },
+  { id: '3', name: 'にゅうがく・そつぎょう', color: '#C3D825' },
+  { id: '4', name: 'しゅっさん', color: '#FFD4C8' },
+  { id: '5', name: 'おいわい', color: '#E6D5F5' },
+  { id: '6', name: 'その他', color: '#D3D3D3' },
+]

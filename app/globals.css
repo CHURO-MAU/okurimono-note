@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap');
+
+body {
+  @apply bg-warm-cream text-warm-gray;
+}
+
+/* カスタムスクロールバー */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-warm-cream;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-sakura rounded-full;
+}
+
+/* ふんわりとしたボタンスタイル */
+.btn-primary {
+  @apply bg-sakura hover:bg-sakura/80 text-white font-medium py-2 px-6 rounded-soft shadow-soft transition-all duration-200;
+}
+
+.btn-secondary {
+  @apply bg-sora hover:bg-sora/80 text-white font-medium py-2 px-6 rounded-soft shadow-soft transition-all duration-200;
+}
+
+.btn-outline {
+  @apply border-2 border-sakura text-sakura hover:bg-sakura hover:text-white font-medium py-2 px-6 rounded-soft transition-all duration-200;
+}
+
+/* カード */
+.card {
+  @apply bg-soft-white rounded-softer shadow-soft-lg p-6 transition-shadow duration-200 hover:shadow-soft-lg;
+}
+
+/* インプット */
+.input {
+  @apply w-full px-4 py-2 rounded-soft border-2 border-gray-200 focus:border-sakura focus:outline-none transition-colors duration-200;
+}
+
+.select {
+  @apply w-full px-4 py-2 rounded-soft border-2 border-gray-200 focus:border-sakura focus:outline-none transition-colors duration-200 bg-white;
+}
+
+.textarea {
+  @apply w-full px-4 py-2 rounded-soft border-2 border-gray-200 focus:border-sakura focus:outline-none transition-colors duration-200 resize-none;
+}
+
+/* ラベル */
+.label {
+  @apply block text-sm font-medium text-warm-gray mb-1.5;
+}
