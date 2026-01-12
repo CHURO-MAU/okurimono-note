@@ -12,9 +12,10 @@ import {
 interface DataManagementProps {
   onDataImported: (records: GiftRecord[]) => void
   onClose: () => void
+  isModal?: boolean
 }
 
-export default function DataManagement({ onDataImported, onClose }: DataManagementProps) {
+export default function DataManagement({ onDataImported, onClose, isModal = true }: DataManagementProps) {
   const [importMode, setImportMode] = useState<'overwrite' | 'append'>('append')
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -76,10 +77,10 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
     }
   }
 
-  return (
-    <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
-      <div className="bg-warm-cream rounded-softer max-w-lg w-full p-6 space-y-6">
-        {/* ヘッダー */}
+  const content = (
+    <div className={isModal ? "bg-warm-cream rounded-softer max-w-lg w-full p-6 space-y-6" : "space-y-6"}>
+      {/* ヘッダー */}
+      {isModal && (
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold text-sakura">💾 データバックアップ</h2>
           <button
@@ -89,6 +90,7 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
             ✕
           </button>
         </div>
+      )}
 
         {/* メッセージ */}
         {message && (
@@ -184,11 +186,20 @@ export default function DataManagement({ onDataImported, onClose }: DataManageme
           </p>
         </div>
 
-        {/* 閉じるボタン */}
+      {/* 閉じるボタン */}
+      {isModal && (
         <button onClick={onClose} className="btn-secondary w-full">
           閉じる
         </button>
-      </div>
+      )}
     </div>
+  )
+
+  return isModal ? (
+    <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
+      {content}
+    </div>
+  ) : (
+    content
   )
 }
