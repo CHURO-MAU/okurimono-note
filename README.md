@@ -135,6 +135,56 @@ okurimono-note/
 - **Language**: TypeScript
 - **Storage**: LocalStorage (ブラウザローカル)
 
+## 🚀 GitHub Pagesへのデプロイ
+
+このアプリはGitHub Pagesで簡単にデプロイできます。
+
+### デプロイ手順
+
+#### 1. リポジトリの準備
+
+```bash
+# mainブランチにコードをpush
+git push origin main
+```
+
+#### 2. GitHub Pages設定
+
+1. GitHubリポジトリのページを開く
+2. **Settings** タブをクリック
+3. 左サイドバーから **Pages** を選択
+4. **Source** セクションで **GitHub Actions** を選択
+5. 自動的にビルド・デプロイが開始されます
+
+#### 3. アクセス
+
+- デプロイが完了すると以下のURLでアクセス可能:
+  - `https://<username>.github.io/okurimono-note/`
+
+#### 4. サブパスの設定（リポジトリ名でホストする場合）
+
+もし `https://<username>.github.io/okurimono-note/` のようにサブパスでホストする場合は、
+`next.config.js` のコメントアウトされている部分を有効にしてください:
+
+```javascript
+basePath: '/okurimono-note',
+assetPrefix: '/okurimono-note',
+```
+
+### 手動ビルド（開発用）
+
+```bash
+npm run build
+```
+
+ビルドされたファイルは `out/` ディレクトリに出力されます。
+
+### 注意事項
+
+- mainブランチにpushするたびに自動デプロイされます
+- ビルドには数分かかる場合があります
+- GitHub Actionsのタブでデプロイ状況を確認できます
+
 ## 🔮 今後の拡張案
 
 - 📸 写真添付機能
@@ -147,11 +197,3 @@ okurimono-note/
 ## 📄 ライセンス
 
 MIT License
-
-## 🤝 コントリビューション
-
-プルリクエストを歓迎します！大きな変更の場合は、まずissueを開いて変更内容を議論してください。
-
-## 💬 お問い合わせ
-
-質問や提案がある場合は、GitHubのissueでお知らせください。
