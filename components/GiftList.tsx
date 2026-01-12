@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { GiftRecord } from '@/lib/types'
+import { GiftRecord, DEFAULT_CATEGORIES } from '@/lib/types'
 import { deleteRecord, getRecords } from '@/lib/storage'
 import { formatCurrency, formatDate } from '@/lib/utils'
 
@@ -13,6 +13,12 @@ interface GiftListProps {
 
 export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
+
+  // カテゴリ名から色を取得
+  const getCategoryColor = (categoryName: string): string => {
+    const category = DEFAULT_CATEGORIES.find(cat => cat.name === categoryName)
+    return category ? category.color : '#D3D3D3' // デフォルトは「その他」の色
+  }
 
   const handleDelete = (id: string) => {
     if (confirm('この記録を削除しますか？')) {
@@ -49,7 +55,10 @@ export default function GiftList({ records, onEdit, onUpdate }: GiftListProps) {
                 <span className="text-2xl font-bold text-sakura">
                   {formatCurrency(record.amount)}
                 </span>
-                <span className="px-3 py-1 bg-peach/30 rounded-full text-sm font-medium">
+                <span
+                  className="px-3 py-1 rounded-full text-sm font-medium"
+                  style={{ backgroundColor: `${getCategoryColor(record.category)}40` }}
+                >
                   {record.category}
                 </span>
                 {record.hasReturned && (
