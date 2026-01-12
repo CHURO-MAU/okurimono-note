@@ -14,7 +14,7 @@ export default function Home() {
   const [filteredRecords, setFilteredRecords] = useState<GiftRecord[]>([])
   const [showForm, setShowForm] = useState(false)
   const [editingRecord, setEditingRecord] = useState<GiftRecord | null>(null)
-  const [activeTab, setActiveTab] = useState<'list' | 'dashboard'>('list')
+  const [activeTab, setActiveTab] = useState<'list' | 'dashboard' | 'backup'>('list')
   const [showDataManagement, setShowDataManagement] = useState(false)
 
   useEffect(() => {
@@ -39,83 +39,100 @@ export default function Home() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* タブナビゲーション */}
-      <div className="flex gap-3">
-        <button
-          onClick={() => setActiveTab('list')}
-          className={`flex-1 py-3 px-6 rounded-soft font-medium transition-all duration-200 ${
-            activeTab === 'list'
-              ? 'bg-sakura text-white shadow-soft'
-              : 'bg-soft-white text-warm-gray hover:bg-peach/20'
-          }`}
-        >
-          📝 記録一覧
-        </button>
-        <button
-          onClick={() => setActiveTab('dashboard')}
-          className={`flex-1 py-3 px-6 rounded-soft font-medium transition-all duration-200 ${
-            activeTab === 'dashboard'
-              ? 'bg-sakura text-white shadow-soft'
-              : 'bg-soft-white text-warm-gray hover:bg-peach/20'
-          }`}
-        >
-          📊 集計
-        </button>
-        <button
-          onClick={() => setShowDataManagement(true)}
-          className="py-3 px-6 rounded-soft font-medium bg-sora text-white hover:bg-sora/90 transition-all duration-200 shadow-soft"
-          title="データバックアップ"
-        >
-          💾
-        </button>
+    <div className="relative pb-20">
+      {/* メインコンテンツ */}
+      <div className="space-y-6">
+        {activeTab === 'list' && (
+          <>
+            <FilterBar
+              records={records}
+              onFilterChange={setFilteredRecords}
+            />
+
+            <GiftList
+              records={filteredRecords}
+              onEdit={handleEdit}
+              onUpdate={handleRecordsUpdate}
+            />
+          </>
+        )}
+
+        {activeTab === 'dashboard' && (
+          <Dashboard records={records} />
+        )}
+
+        {activeTab === 'backup' && (
+          <DataManagement
+            onDataImported={handleRecordsUpdate}
+            onClose={() => setActiveTab('list')}
+          />
+        )}
       </div>
 
-      {activeTab === 'list' ? (
-        <>
-          <div className="flex justify-end">
+      {/* フォームモーダル */}
+      {showForm && (
+        <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
+          <div className="bg-warm-cream rounded-softer max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <GiftForm
+              editingRecord={editingRecord}
+              onClose={handleFormClose}
+              onUpdate={handleRecordsUpdate}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* フローティングアクションボタン（右下） */}
+      <button
+        onClick={() => setShowForm(true)}
+        className="fixed bottom-24 right-6 w-14 h-14 bg-sakura text-white rounded-full shadow-lg hover:bg-sakura/90 transition-all duration-200 flex items-center justify-center text-2xl z-40"
+        aria-label="新しく記録"
+      >
+        +
+      </button>
+
+      {/* 下部ナビゲーションバー */}
+      <nav className="fixed bottom-0 left-0 right-0 bg-soft-white border-t border-peach/20 z-30">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-around items-center h-16">
             <button
-              onClick={() => setShowForm(true)}
-              className="btn-primary"
+              onClick={() => setActiveTab('list')}
+              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+                activeTab === 'list'
+                  ? 'text-sakura'
+                  : 'text-warm-gray hover:text-sakura'
+              }`}
             >
-              ➕ 新しく記録
+              <span className="text-2xl mb-1">📝</span>
+              <span className="text-xs font-medium">記録一覧</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('dashboard')}
+              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+                activeTab === 'dashboard'
+                  ? 'text-sakura'
+                  : 'text-warm-gray hover:text-sakura'
+              }`}
+            >
+              <span className="text-2xl mb-1">📊</span>
+              <span className="text-xs font-medium">集計</span>
+            </button>
+
+            <button
+              onClick={() => setActiveTab('backup')}
+              className={`flex flex-col items-center justify-center flex-1 h-full transition-colors ${
+                activeTab === 'backup'
+                  ? 'text-sakura'
+                  : 'text-warm-gray hover:text-sakura'
+              }`}
+            >
+              <span className="text-2xl mb-1">💾</span>
+              <span className="text-xs font-medium">バックアップ</span>
             </button>
           </div>
-
-          <FilterBar
-            records={records}
-            onFilterChange={setFilteredRecords}
-          />
-
-          {showForm && (
-            <div className="fixed inset-0 bg-black/30 flex items-center justify-center p-4 z-50">
-              <div className="bg-warm-cream rounded-softer max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-                <GiftForm
-                  editingRecord={editingRecord}
-                  onClose={handleFormClose}
-                  onUpdate={handleRecordsUpdate}
-                />
-              </div>
-            </div>
-          )}
-
-          <GiftList
-            records={filteredRecords}
-            onEdit={handleEdit}
-            onUpdate={handleRecordsUpdate}
-          />
-        </>
-      ) : (
-        <Dashboard records={records} />
-      )}
-
-      {/* データ管理モーダル */}
-      {showDataManagement && (
-        <DataManagement
-          onDataImported={handleRecordsUpdate}
-          onClose={() => setShowDataManagement(false)}
-        />
-      )}
+        </div>
+      </nav>
     </div>
   )
 }
